@@ -5,6 +5,7 @@ import YTSearch from 'youtube-api-search';
 
 import SearchBar from './components/search_bar';
 import VideoList from './components/video_list';
+import VideoDetail from './components/video_detail';
 
 const API_KEY = 'AIzaSyCkpADtodTQ1kQ0Pxa8dszJGUt0yiTC508';
 
@@ -12,7 +13,11 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = { videos: [] };
-    YTSearch({ key: API_KEY, term: 'Deivamagal' }, (videos) => {
+    this.onSearchChange('Tamil');
+  }
+
+  onSearchChange(term) {
+    YTSearch({ key: API_KEY, term }, (videos) => {
       this.setState({ videos });
       console.log(this.state.videos);
     });
@@ -20,7 +25,8 @@ class App extends Component {
   render() {
     return (
       <div>
-        <SearchBar />
+        <SearchBar onSearchChange={term => this.onSearchChange(term)} />
+        <VideoDetail video={this.state.videos[0]} />
         <VideoList videos={this.state.videos} />
       </div>
     );
