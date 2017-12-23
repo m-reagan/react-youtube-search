@@ -1,8 +1,8 @@
 import React from 'react';
 
-function VideoListItem({ video }) {
+function VideoListItem({ video, onVideoClick }) {
   return (
-    <div className="media">
+    <div className="media" onClick={() => onVideoClick(video)} >
       <div className="media-left">
         <img src={video.snippet.thumbnails.default.url} className="media-object" alt="" />
       </div>
